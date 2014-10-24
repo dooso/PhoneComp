@@ -1,0 +1,88 @@
+﻿@using PagedList.Mvc;
+@model PagedList.PagedList<PhoneComp.Models.CallRecord>
+
+@{
+    ViewBag.Title = "嫌疑人通话记录";
+    Layout ="~/Views/Shared/_LayoutCustom.cshtml";
+}
+
+<ol class="breadcrumb">
+    <li><a href="/Home/Index">Home</a></li>
+    <li class="avtive">嫌疑人通话记录</li>
+</ol>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2>嫌疑人通话记录</h2>
+    </div>
+    <div class="panel-body">
+        <div id="Tips" class="alert alert-danger alert-dismissable hidden">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <span></span>
+        </div>
+        <div class="pull-left">
+            @Html.ActionLink("新增", "CreateEdit", null, new { @class="btn btn-success"})
+            @Html.ActionLink("批量导入", "BatchImport", null, new { @class="btn btn-success"})
+            @Html.ActionLink("比对数据库","CallRecordComp",null,new{@class="btn btn-info"})             
+        </div>
+        <div class="pull-right">
+            <form>
+                @Html.DropDownList("SuspectID", (SelectList)ViewBag.SuspectID, new { @class = "chosen-select-deselect", style = "width:140px" })
+                <button type="submit" class="btn btn-primary">搜索</button>
+            </form>
+        </div>
+    </div>
+    
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    <input type="checkbox" value="" onclick=""></th>
+                <th>嫌疑人名称 </th>
+                <th>本机号码</th>
+                <th>对方号码</th>
+                <th>主被叫</th>
+                <th>通话时间</th>
+                <th>通话时长(s)</th>
+                <th>录入人</th>
+                <th>录入时间</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <input type="checkbox" value="@item.CallRecordID" name="CallRecordID"></td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Suspects.SuspectName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Suspects.SuspectMobile)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CalledMobile)
+                    </td>
+                    <td>@Html.DisplayFor(modelItem => item.LordCalled)</td>
+                    <td>@Html.DisplayFor(modelItem => item.CallTime)</td>
+                    <td>@Html.DisplayFor(modelItem => item.CallDuration)</td>
+                    <td>@((item.Member?? new PhoneComp.Models.Member()).RealName)</td> 
+                    <td>@(item.CreateDate== null ?"":item.CreateDate.GetValueOrDefault().ToString("yyyy-MM-dd"))</td>
+                    <td>
+                        <ul class="list-inline">
+                            <li>@Html.ActionLink("Edit", "CreateEdit", new { id = item.CallRecordID })</li>
+                            <li><a href="javascript:void(0);" onclick="ajaxPostDel('/CallRecord/Delete',@(item.CallRecordID))">Delete</a></li>
+                        </ul>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+@*Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount*@
+<div class="">    
+共 @(Model.TotalItemCount) 条记录
+
+@Html.PagedListPager(Model, pageIndex => Url.Action("Index", new { pageIndex, pageSize = Request["pageSize"]}))
+    </div>

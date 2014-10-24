@@ -1,0 +1,36 @@
+﻿@model PhoneComp.Models.Suspects
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Suspects</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.SuspectName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SuspectName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.SuspectMobile)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SuspectMobile)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.IsDeleted)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IsDeleted)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.SuspectID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

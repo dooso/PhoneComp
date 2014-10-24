@@ -1,0 +1,90 @@
+﻿@using PagedList.Mvc;
+@model PagedList.PagedList<PhoneComp.Models.CallRecordUsedWorker>
+@{
+    ViewBag.Title = "嫌疑人通话记录比对";
+    Layout = "~/Views/Shared/_LayoutCustom.cshtml";
+}
+
+<ol class="breadcrumb">
+    <li><a href="/Home/Index">Home</a></li>
+    <li><a href="/CallRecord/Index">嫌疑人通话记录</a></li>
+    <li class="avtive">嫌疑人通话记录比对</li>
+</ol>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2>嫌疑人通话记录比对</h2>
+    </div>
+    <div class="panel-body">
+        @if (ViewBag.error != null)
+        {
+            <div class="alert alert-danger">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <strong>Error!</strong> @ViewBag.error
+            </div>
+        }
+        @Html.DropDownList("SuspectID", (SelectList)ViewBag.SuspectID, new { @class = "chosen-select-deselect", style = "width:140px" })
+        <button class="btn btn-primary" name="contactComp" onclick="CompSubmit('/CallRecord/CallRecordComp','SuspectID')">开始比对</button>
+    </div>
+    <div id="tableList" class="panel-body">
+
+        <table class="table">
+            <tr>
+                <th>
+                    <input type="checkbox" value="" onclick=""></th>
+                <th>对方姓名</th>
+                <th>对方号码</th>
+                <th>主被叫</th>
+                <th>通话时间</th>
+                <th>通话时长</th>
+                <th>嫌疑人姓名</th>
+                <th>本机号码</th>
+            </tr>
+            @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                <tr>
+                    <td>
+                        <input type="checkbox"></td>
+                    <td>
+                        <a href="/UsedWorker/Detail/@(item.UsedWorker.UsedWorkerID)">@(item.UsedWorker.Name)</a>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CallRecord.CalledMobile)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CallRecord.LordCalled)
+                    </td>
+                    <td>@item.CallRecord.CallTime</td>
+                    <td>@item.CallRecord.CallDuration</td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CallRecord.Suspects.SuspectName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CallRecord.Suspects.SuspectMobile)
+                    </td>
+                </tr>
+                }
+            }
+        </table>
+        @if (Model != null)
+        {
+            <div class="">
+                共 @(Model.TotalItemCount) 条记录
+
+    @Html.PagedListPager(Model, pageIndex => Url.Action("CallRecordComp", new { pageIndex, pageSize = Request["pageSize"], suspectID = Request["suspectID"] }))
+            </div>}
+
+    </div>
+</div>
+<script>
+    function CompSubmit(url, id) {
+        var param = $("#" + id).val();
+        if (param > 0) {
+            window.location.href = url + "?SuspectID=" + param;
+        }
+    }
+</script>
+
+
+

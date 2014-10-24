@@ -1,0 +1,109 @@
+﻿@model PhoneComp.Models.UsedWorker
+
+@{
+    ViewBag.Title = "新增|编辑二手从业人员";
+    Layout = "~/Views/Shared/_LayoutCustom.cshtml";
+}
+
+<ol class="breadcrumb">
+    <li><a href="/Home/Index">Home</a></li>
+    <li><a href="/UsedWorker/Index">二手从业人员列表</a></li>
+    <li class="avtive">新增|编辑</li>
+</ol>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2>新增|编辑二手从业人员</h2>
+    </div>
+    <div class="panel-body">
+       <div class="alert alert-danger hidden" id="Tips">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <strong>Tips!</strong>
+            <span id="TipsMsg"></span>
+        </div>
+        <form class="form-horizontal" id="usedworkerform" name="usedworkerform" action="/UsedWorker/CreateEdit" method="post" role="form">
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="Name">姓名</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control validate[required]" id="Name" name="Name" value="@Model.Name" placeholder="姓名">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="IDcard">身份证号</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control validate[required,custom[chinaId]]" id="IDcard" name="IDcard" value="@Model.IDcard" placeholder="身份证号">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="Job">职业</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="Job" name="Job" value="@Model.Job" placeholder="职业">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="JobAddress">工作地址</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control validate[required,minSize[6]]" id="JobAddress" name="JobAddress" value="@Model.JobAddress" placeholder="工作地址">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="HomeAddress">家庭住址</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control validate[required,minSize[6]]" id="HomeAddress" name="HomeAddress" value="@Model.HomeAddress" placeholder="家庭住址">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="Phone1">联系方式1</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="Phone1" name="Phone1" value="@Model.Phone1" placeholder="联系方式1">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="Phone2">联系方式2</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="Phone2" name="Phone2" value="@Model.Phone2" placeholder="联系方式2">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="Phone3">联系方式3</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="Phone3" name="Phone3" value="@Model.Phone3" placeholder="联系方式3">
+                </div>
+            </div>
+            <input type="hidden" name="CreateDate" value="@Model.CreateDate" />
+            <input type="hidden" name="CreateUserID" value="@Model.CreateUserID" />
+            <input type="hidden" name="UsedWorkerID" id="UsedWorkerID" value="@Model.UsedWorkerID" />
+            <div >
+                <div class="center-block col-sm-6" style=" float: none; ">
+                    <input type="button" id="submit" class="btn btn-primary" value="新增|编辑" />
+                    <a href="/UsedWorker/Index" class="btn btn-default">取消</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#submit").click(function () {
+            submitForm("usedworkerform", "/UsedWorker/CreateEdit", $("#usedworkerform").serialize());
+        });
+
+        myFormValidation("usedworkerform");
+
+        $("#IDcard").blur(function () {
+            var idcard = $("#IDcard").val();
+            var uid = $("#UsedWorkerID").val();
+            $.get("/UsedWorker/IsExistIDCard", { idcard: idcard ,usedworkerid:uid}, function (data) {
+                if (data == "True") {
+                    $("#TipsMsg").html("身份证号码已存在");
+                    $("#Tips").removeClass("hidden");
+                    $("#IDcard").focus();
+                } else {
+                    $("#TipsMsg").html("");
+                    $("#Tips").addClass("hidden");
+                }
+            });
+        });
+    });
+</script>
+

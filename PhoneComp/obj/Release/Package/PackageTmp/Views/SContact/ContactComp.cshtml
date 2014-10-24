@@ -1,0 +1,98 @@
+﻿@using PagedList.Mvc;
+@model PagedList.PagedList<PhoneComp.Models.UsedWorker>
+
+@{
+    ViewBag.Title = "嫌疑人通讯录比对";
+    Layout = "~/Views/Shared/_LayoutCustom.cshtml";
+}
+
+<ol class="breadcrumb">
+    <li><a href="/Home/Index">Home</a></li>
+    <li><a href="/Scontact/Index">嫌疑人通讯录</a></li>
+    <li class="avtive">嫌疑人通讯录比对</li>
+</ol>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2>嫌疑人通讯录比对</h2>
+    </div>
+    <div class="panel-body">
+        @if (ViewBag.error != null)
+        {
+            <div class="alert alert-danger">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <strong>Error!</strong> @ViewBag.error
+            </div>
+        }
+
+        @Html.DropDownList("SuspectID", (SelectList)ViewBag.SuspectID, new { @class = "chosen-select-deselect", style = "width:140px" })
+        <button class="btn btn-primary" name="contactComp" onclick="CompSubmit('/SContact/ContactComp','SuspectID')">开始比对</button>
+    </div>
+    <div id="tableList" class="panel-body">
+
+        <table class="table">
+            <tr>
+                <th>姓名 </th>
+                <th>身份证号</th>
+                <th>职业</th>
+                <th>工作地址</th>
+                <th>家庭地址</th>
+                <th>联系方式1</th>
+                <th>联系方式2</th>
+                <th>联系方式3</th>
+            </tr>
+            @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IDcard)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Job)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.JobAddress)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HomeAddress)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Phone1)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Phone2)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Phone3)
+                    </td>
+                </tr>
+                }
+            }
+        </table>
+        @if (Model != null)
+        {
+            <div class="">
+                共 @(Model.TotalItemCount) 条记录
+
+    @Html.PagedListPager(Model, pageIndex => Url.Action("Index", new { pageIndex, pageSize = Request["pageSize"] }))
+            </div>
+        }
+
+    </div>
+</div>
+<script>
+    function CompSubmit(url, id) {
+        var param = $("#" + id).val();
+        if (param > 0) {
+            window.location.href = url + "?SuspectID=" + param;
+        }
+    }
+</script>
+
+
+
+

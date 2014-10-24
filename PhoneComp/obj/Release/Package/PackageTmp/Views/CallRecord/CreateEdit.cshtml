@@ -1,0 +1,82 @@
+﻿@model PhoneComp.Models.CallRecord
+
+
+@{
+    ViewBag.Title = "新增|编辑 通话记录";
+    Layout = "~/Views/Shared/_LayoutCustom.cshtml";
+}
+
+<ol class="breadcrumb">
+    <li><a href="/Home/Index">Home</a></li>
+    <li><a href="/CallRecord/Index">嫌疑人通话记录</a></li>
+    <li class="avtive">新增|编辑</li>
+</ol>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2>新增|编辑 嫌疑人通话记录</h2>
+    </div>
+    <div class="panel-body">
+        <div class="alert alert-danger hidden" id="Tips">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <strong>Tips!</strong>
+            <span id="TipsMsg"></span>
+        </div>
+        <form class="form-horizontal" id="callrecordform" name="callrecordform" action="" method="post" role="form">
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="SuspectName">本机号码</label>
+                <div class="col-sm-8">                    
+                    @Html.DropDownList("SuspectID", (SelectList)ViewBag.SuspectID, new { @class = "chosen-select", style = "width:140px" })
+                </div>
+            </div>
+            @*<div class="form-group">
+                <label class="col-sm-2 control-label" for="SuspectMobile">本机号码</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control validate[required]" id="SuspectMobile" name="SuspectMobile" value="@Model.Suspects.SuspectMobile" placeholder="本机号码">
+                </div>
+            </div>*@
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="CalledMobile">对方号码</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control validate[required,custom[phone]]" id="CalledMobile" name="CalledMobile" value="@Model.CalledMobile" placeholder="对方号码">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="LordCalled">主被叫</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control validate[required]" id="LordCalled" name="LordCalled" value="@Model.LordCalled" placeholder="主被叫">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="CallTime">通话时间</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control validate[required]" id="CallTime" name="CallTime" value="@Model.CallTime" placeholder="如：20140101 09:50:30">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="CallDuration">通话时长</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control validate[required]" id="CallDuration" name="CallDuration" value="@Model.CallDuration" placeholder="通话时长">
+                </div>
+            </div>
+            <input type="hidden" name="CreateDate" value="@Model.CreateDate" />
+            <input type="hidden" name="CreateUserID" value="@Model.CreateUserID" />
+            <input type="hidden" name="ContactID" value="@Model.CallRecordID" />
+            <div>
+                <div class="center-block col-sm-6" style="float: none;">
+                    <input type="button" id="submit" class="btn btn-primary" value="新增|编辑" />
+                    @Html.ActionLink("取消","Index",null,new{@class="btn btn-default"})
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#submit").click(function () {
+            submitForm("callrecordform", "/CallRecord/CreateEdit", $("#callrecordform").serialize());
+        });
+
+        myFormValidation("callrecordform");
+    });
+</script>

@@ -1,0 +1,34 @@
+﻿@{
+    ViewBag.Title = "号码比对系统";
+    Layout = "~/Views/Shared/_LayoutCustom.cshtml";
+}
+@section featured {
+    <section class="featured">
+        <div class="content-wrapper">
+            <hgroup class="title">
+                <h1>@ViewBag.Title.</h1>
+            </hgroup>
+            <p>
+                Anything you want to know about the web, call me，qq：957310108.
+            </p>
+        </div>
+    </section>
+}
+<h3>下面是我们的建议:</h3>
+<blockquote>
+    <p><a href="#">号码比对系统</a></p>
+    <p><strong>首先,</strong>录入二手业从业人员信息，<strong class="text-danger">身份证号码必须不能为空，且不能重复！</strong></p>
+    <p> 号码比对前，请先建立<a href="/Suspect/CreateEdit">嫌疑人信息</a>,<strong class="text-danger">手机号码不能为空，且不能重复！</strong></p>
+    <p> 批量上传时，请确保Excel文件按模板要求格式，<strong class="text-danger">不能随意更改列名！</strong></p>
+</blockquote>
+<p>
+
+    <a href="/UsedWorker/Index" class="btn btn-primary btn-lg ">二手从业人员列表</a>
+
+    <a href="/Suspect/Index" class="btn btn-info btn-lg ">嫌疑人列表</a>
+
+    <a href="/Scontact/Index" class="btn btn-success btn-lg ">嫌疑人电话簿</a>
+
+    <a href="/CallRecord/Index" class="btn btn-danger btn-lg ">嫌疑人通话清单</a>
+
+</p>

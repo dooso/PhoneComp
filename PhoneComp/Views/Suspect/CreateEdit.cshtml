@@ -1,0 +1,56 @@
+﻿@model PhoneComp.Models.Suspects
+
+
+@{
+    ViewBag.Title = "新增|编辑嫌疑人";
+    Layout = "~/Views/Shared/_LayoutCustom.cshtml";
+}
+
+<ol class="breadcrumb">
+    <li><a href="/Home/Index">Home</a></li>
+    <li><a href="/Suspect/Index">嫌疑人列表</a></li>
+    <li class="avtive">新增|编辑</li>
+</ol>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2>新增|编辑 嫌疑人</h2>
+    </div>
+    <div class="panel-body">
+        <div class="alert alert-danger hidden" id="Tips">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <strong>Tips!</strong>
+            <span id="TipsMsg"></span>
+        </div>
+        <form class="form-horizontal" id="suspectform" name="suspectform" action="" method="post" role="form">
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="SuspectName">姓名</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control validate[required,ninSize[2],maxSize[50]]" id="SuspectName" name="SuspectName" value="@Model.SuspectName" placeholder="姓名">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="SuspectMobile">手机号码</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control validate[required,minSize[6],maxSize[24]]" id="SuspectMobile" name="SuspectMobile" value="@Model.SuspectMobile" placeholder="手机号码">
+                </div>
+            </div>
+
+            <input type="hidden" name="SuspectID" value="@Model.SuspectID" />
+            <div>
+                <div class="center-block col-sm-6" style="float: none;">
+                    <input type="button" id="submit" class="btn btn-primary" value="新增|编辑" />
+                    <a href="/Suspect/Index" class="btn btn-default">取消</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#submit").click(function () {
+            submitForm("suspectform", "/Suspect/CreateEdit", $("#suspectform").serialize());
+        });
+
+        myFormValidation("suspectform");
+    });
+</script>

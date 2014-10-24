@@ -1,0 +1,83 @@
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<PhoneComp.Models.Suspects>
+
+
+@{
+    ViewBag.Title = "嫌疑人列表";
+    Layout = "~/Views/Shared/_LayoutCustom.cshtml";
+}
+<ol class="breadcrumb">
+    <li><a href="/Home/Index">Home</a></li>
+    <li class="avtive">嫌疑人列表</li>
+</ol>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2>嫌疑人列表</h2>
+    </div>
+    <div class="panel-body">
+        <div id="Tips" class="alert alert-danger alert-dismissable hidden">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <span></span>
+        </div>
+        <div class="pull-left">
+            @Html.ActionLink("新增", "CreateEdit", null, new { @class="btn btn-primary"}) 
+        </div>
+        <div class="pull-right">
+            <form class="form-inline" role="form">
+                <div class="form-group">
+                    <label class="sr-only" for="SuspectName">姓名</label>
+                    <input class="form-control" type="text" name="SuspectName" value="@Request.QueryString["SuspectName"]" placeholder="姓名" />
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="SuspectMobile">手机号码</label>
+                    <input class="form-control" type="text" name="SuspectMobile" value="@Request.QueryString["SuspectMobile"]" placeholder="手机号码" />
+                </div>
+               
+                <button type="submit" class="btn btn-primary">搜索</button>
+            </form>
+        </div>
+    </div>
+    
+    <table class="table">
+        <thead>
+            <tr>
+                <th><input type="checkbox" value="" onclick=""></th>
+                <th>姓名 </th>
+                <th>手机号码</th>
+                <th>录入人</th>
+                <th>录入时间</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <input type="checkbox" value="@item.SuspectID" name="SuspectID"></td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SuspectName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SuspectMobile)
+                    </td>
+                    <td>@((item.Member?? new PhoneComp.Models.Member()).RealName)</td> 
+                    <td>@(item.CreateDate== null ?"":item.CreateDate.GetValueOrDefault().ToString("yyyy-MM-dd"))</td>
+                    <td>
+                        <ul class="list-inline">
+                            <li>@Html.ActionLink("Edit", "CreateEdit", new { id = item.SuspectID })</li>
+                            <li><a href="javascript:void(0);" onclick="ajaxPostDelWithTips('/Suspect/Delete',@(item.SuspectID),'嫌疑人通话记录及电话薄将一并删除！')">Delete</a></li>
+                        </ul>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+@*Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount*@
+<div class="">    
+共 @(Model.TotalItemCount) 条记录
+
+@Html.PagedListPager(Model, pageIndex => Url.Action("Index", new { pageIndex, pageSize = Request["pageSize"]}))
+    </div>

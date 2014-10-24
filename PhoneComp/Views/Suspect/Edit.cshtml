@@ -1,0 +1,53 @@
+﻿@model PhoneComp.Models.Suspects
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Suspects</legend>
+
+        @Html.HiddenFor(model => model.SuspectID)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SuspectName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.SuspectName)
+            @Html.ValidationMessageFor(model => model.SuspectName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SuspectMobile)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.SuspectMobile)
+            @Html.ValidationMessageFor(model => model.SuspectMobile)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.IsDeleted)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.IsDeleted)
+            @Html.ValidationMessageFor(model => model.IsDeleted)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

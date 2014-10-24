@@ -1,0 +1,39 @@
+﻿@model PhoneComp.Models.Suspects
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Suspects</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.SuspectName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SuspectName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.SuspectMobile)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SuspectMobile)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.IsDeleted)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IsDeleted)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

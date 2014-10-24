@@ -1,0 +1,70 @@
+﻿@model PhoneComp.Models.UsedWorker
+
+@{
+    ViewBag.Title = "人员信息详情";
+    Layout = "~/Views/Shared/_LayoutCustom.cshtml";
+}
+<ol class="breadcrumb">
+    <li><a href="/Home/Index">Home</a></li>
+    <li><a href="/UsedWorker/Index">二手从业人员列表</a></li>
+    <li class="avtive">@(Model.Name)的详细信息</li>
+</ol>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2>人员信息详情</h2>
+    </div>
+    <div class="panel-body">
+        <div>
+            @Html.ActionLink("编辑", "CreateEdit", new { id = Model.UsedWorkerID },new { @class="btn btn-primary"})
+            @Html.ActionLink("返回列表", "Index" , null, new { @class="btn btn-primary"})
+        </div>
+        <table class="table table-hover">
+            <tbody>
+                <tr>
+                    <th class="col-xs-2">编号</th>
+                    <td>@Model.UsedWorkerID </td>
+                </tr>
+                <tr>
+                    <th>姓名</th>
+                    <td>@Model.Name </td>
+                </tr>
+                <tr>
+                    <th>身份证号码</th>
+                    <td>@Model.IDcard </td>
+                </tr>
+                <tr>
+                    <th>职业</th>
+                    <td>@Model.Job </td>
+                </tr>
+                <tr>
+                    <th>工作地址</th>
+                    <td>@Model.JobAddress </td>
+                </tr>
+                <tr>
+                    <th>家庭地址</th>
+                    <td>@Model.HomeAddress </td>
+                </tr>
+                <tr>
+                    <th>联系方式1</th>
+                    <td>@Model.Phone1 </td>
+                </tr>
+                <tr>
+                    <th>联系方式2</th>
+                    <td>@Model.Phone2 </td>
+                </tr>
+                <tr>
+                    <th>联系方式3</th>
+                    <td>@Model.Phone3 </td>
+                </tr>
+                <tr>
+                    <th>录入时间</th>
+                    <td>@Model.CreateDate </td>
+                </tr>
+                <tr>
+                    <th>录入人</th>
+                    <td>@Model.CreateUserID </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>

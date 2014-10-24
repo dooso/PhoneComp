@@ -1,0 +1,123 @@
+﻿@{
+    ViewBag.Title = "注册管理员";
+    Layout = "~/Views/Shared/_LayoutCustom.cshtml";
+}
+
+<ol class="breadcrumb">
+    <li><a href="/Home/Index">Home</a></li>
+    <li><a href="/User/Index">管理员列表</a></li>
+    <li class="avtive">注册管理员</li>
+</ol>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2>注册管理员</h2>
+    </div>
+    <div class="panel-body">   
+        <div class="alert alert-danger hidden" id="Tips">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <strong>Tips!</strong>
+            <span id="TipsMsg"></span>
+        </div>
+        <form class="form-horizontal" id="userform" name="userform" action="" method="post" role="form">
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="RoleID">角色</label>
+                <div class="col-sm-8">
+                    @Html.DropDownList("RoleID", (SelectList)ViewBag.RoleID, new { @class = "chosen-select-deselect", style = "width:140px" })
+                </div>
+            </div>            
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="UserName">用户名</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control validate[required]" id="UserName" name="UserName" value="" placeholder="用户名">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="Password">密码</label>
+                <div class="col-sm-8">
+                    <input type="password" class="form-control validate[required,minSize[6]]" id="Password" name="Password" value="" placeholder="密码">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="RealName">真实姓名</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control validate[required]" id="RealName" name="RealName" value="" placeholder="真实姓名">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="Mobile">手机号</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control validate[required,minSize[6],maxSize[24]]" id="Mobile" name="Mobile" value="" placeholder="手机号">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="IDcard">身份证号</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control validate[required,custom[chinaId]]" id="IDcard" name="IDcard" value="" placeholder="身份证号">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="Job">职业</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="Job" name="Job" value="" placeholder="职业">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="Address">地址</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="Address" name="Address" value="" placeholder="地址">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="Remark">备注</label>
+                <div class="col-sm-8">                    
+                    <textarea class="form-control"  cols="3" name="Remark" id="Remark" placeholder="备注"></textarea>
+                </div>
+            </div>
+            <div >
+                <div class="center-block col-sm-6" style=" float: none; ">
+                    <input type="button"  id="submit" class="btn btn-primary" value="提交" />
+                    <a class="btn btn-default" href="/user/index">取消</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>   
+    $(document).ready(function () {
+        $("#submit").click(function () {
+            submitForm("userform", "/User/Register", $("#userform").serialize());
+        });
+
+        myFormValidation("userform");
+
+        $("#UserName").blur(function () {
+            var username = $("#UserName").val();
+            $.get("/User/IsExistUserName", { username: username }, function (data) {
+                if (data == "True") {
+                    $("#TipsMsg").html("用户名已存在");
+                    $("#Tips").removeClass("hidden");
+                    $("#UserName").focus();
+                } else {
+                    $("#TipsMsg").html("");
+                    $("#Tips").addClass("hidden");
+                }
+            });
+        });
+
+        $("#IDcard").blur(function () {
+            var idcard = $("#IDcard").val();
+            $.get("/User/IsExistIDCard", { idcard: idcard }, function (data) {
+                if (data == "True") {
+                    $("#TipsMsg").html("身份证号码已存在");
+                    $("#Tips").removeClass("hidden");
+                    $("#IDcard").focus();
+                } else {
+                    $("#TipsMsg").html("");
+                    $("#Tips").addClass("hidden");
+                }
+            });
+        });
+    });
+</script>
+

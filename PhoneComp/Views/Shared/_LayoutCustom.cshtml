@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title-号码比对系统</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/Template/JqueryUI/css/ui-lightness/jquery-ui-1.10.4.min.css" />
+    <script src="/Template/jquery/1.10.2/jquery.min.js"></script>
+    <script src="/Template/JqueryUI/js/jquery-ui-1.10.4.min.js"></script>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="/Template/Bootstrap/css/bootstrap.min.css">
+    <link href="/Content/PagedList.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="/Template/jquery-Validation/css/validationEngine.jquery.css" />
+    <link rel="stylesheet" href="/Template/Chosen/chosen.min.css" />
+    <link rel="stylesheet" href="/Content/PhoneComp.css" />
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="/Template/Bootstrap/html5shiv.min.js"></script>
+        <script src="/Template/Bootstrap/respond.min.js"></script>
+    <![endif]-->
+    <script src="/Scripts/utility.js"></script>
+    <script src="/Template/Chosen/chosen.jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#LogOut").click(function () {
+                ajaxGet("/Home/LogOut", null);
+            });
+        });
+    </script>
+</head>
+<body>
+    <header class="navbar navbar-inverse bs-docs-nav" role="banner">
+        <div class="container">
+            <div class="navbar-header">
+                <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="/" class="navbar-brand">号码比对</a>
+            </div>
+            <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="/UsedWorker/Index">二手从业人员</a>
+                    </li>
+                    <li>
+                        <a href="/Suspect/Index">嫌疑人</a>
+                    </li>
+                    <li class="">
+                        <a href="/Scontact/Index">嫌疑人电话簿</a>
+                    </li>
+                    <li>
+                        <a href="/CallRecord/Index">嫌疑人通话记录</a>
+                    </li>
+                    @if (PhoneComp.Lib.CurrentUser.RoleID == 1)
+                    {                    
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">设置<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="/User/Index">管理员列表</a>
+                                </li>
+                                <li>
+                                    <a href="/role/Index">管理员角色</a>
+                                </li>
+                            </ul>
+                        </li>
+                    }
+                </ul>
+                <ul class="nav navbar-nav navbar-right ">
+                    <li class="dropdown">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-user"></span>
+                            @PhoneComp.Lib.CurrentUser.UserName
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/User/Changepassword/@(PhoneComp.Lib.CurrentUser.UID)" >密码修改</a></li>
+                            <li><a href="javascript:void(0);" id="LogOut">退出</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div class="container mainbody">
+        @RenderSection("featured", required: false)
+        @RenderBody()
+        <div id="Message" style="display: none"></div>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <p>© 2014 版权 · 技术支持：<a href="javascript:void(0);" target="_blank">957310108@qq.com</a></p>
+        </div>
+    </footer>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="/Template/Bootstrap/js/bootstrap.min.js"></script>
+    <!--jquery-Validation -->
+    <script src="/Template/jquery-Validation/js/jquery.validationEngine-zh_CN.js"></script>
+    <script src="/Template/jquery-Validation/js/jquery.validationEngine.min.js"></script>
+</body>
+</html>

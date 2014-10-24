@@ -1,0 +1,92 @@
+﻿@using PagedList.Mvc;
+@using PhoneComp.Models;
+@model PagedList.PagedList<Contact>
+
+@{
+    ViewBag.Title = "嫌疑人通讯录";
+    Layout ="~/Views/Shared/_LayoutCustom.cshtml";
+}
+
+<ol class="breadcrumb">
+    <li><a href="/Home/Index">Home</a></li>
+    <li class="avtive">嫌疑人通讯录</li>
+</ol>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2>嫌疑人通讯录</h2>
+    </div>
+    <div class="panel-body">
+        <div id="Tips" class="alert alert-danger alert-dismissable hidden">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <span></span>
+        </div>
+        <div class="pull-left">
+            @Html.ActionLink("新增", "CreateEdit", null, new { @class="btn btn-success"})
+            @Html.ActionLink("批量导入", "BatchImport", null, new { @class="btn btn-success"})
+            @Html.ActionLink("比对数据库","ContactComp","SContact",null,new{@class="btn btn-info"})             
+        </div>
+        <div class="pull-right">
+            <form class="form-inline" role="form">
+                <div class="form-group">
+                    <label class="sr-only" for="LinkerName">联系人</label>
+                    <input class="form-control" type="text" name="LinkerName" value="@Request.QueryString["LinkerName"]" placeholder="联系人" />
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="LinkerMobile">联系电话</label>
+                    <input class="form-control" type="text" name="LinkerMobile" value="@Request.QueryString["LinkerMobile"]" placeholder="联系电话" />
+                </div>
+                <button type="submit" class="btn btn-primary">搜索</button>
+            </form>
+        </div>
+    </div>
+    
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    <input type="checkbox" value="" onclick=""></th>                
+                <th>联系人</th>
+                <th>联系电话</th>
+                <th>嫌疑人名称 </th>
+                <th>嫌疑人手机号</th>
+                <th>录入人</th>
+                <th>录入时间</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <input type="checkbox" value="@item.ContactID" name="ContactID"></td>                    
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LinkerName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LinkerMobile)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Suspects.SuspectName)
+                    </td>
+                    <td>@item.Suspects.SuspectMobile</td>
+                    <td>@((item.Member?? new PhoneComp.Models.Member()).RealName)</td> 
+                    <td>@(item.CreateDate== null ?"":item.CreateDate.GetValueOrDefault().ToString("yyyy-MM-dd"))</td>
+                    <td>
+                        <ul class="list-inline">
+                            <li>@Html.ActionLink("Edit", "CreateEdit", new { id = item.SuspectID })</li>
+                            <li><a href="javascript:void(0);" onclick="ajaxPostDel('/Scontact/Delete',@(item.ContactID))">Delete</a></li>
+                        </ul>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+@*Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount*@
+<div class="">    
+共 @(Model.TotalItemCount) 条记录
+
+@Html.PagedListPager(Model, pageIndex => Url.Action("Index", new { pageIndex, pageSize = Request["pageSize"]}))
+    </div>

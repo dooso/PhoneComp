@@ -1,0 +1,105 @@
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<PhoneComp.Models.Member>
+
+
+@{
+    ViewBag.Title = "管理员列表";
+    Layout = "~/Views/Shared/_LayoutCustom.cshtml";
+}
+<ol class="breadcrumb">
+    <li><a href="/Home/Index">Home</a></li>
+    <li class="avtive">管理员列表</li>
+</ol>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2>管理员列表</h2>
+    </div>
+    <div class="panel-body">
+        <div id="Tips" class="alert alert-danger alert-dismissable hidden">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <span></span>
+        </div>
+        <div class="pull-left">
+            @Html.ActionLink("新增", "Register", null, new { @class="btn btn-primary"}) 
+        </div>
+        <div class="pull-right">
+            <form class="form-inline" role="form">
+                <div class="form-group">
+                    <label class="sr-only" for="UserName">用户名</label>
+                    <input class="form-control" type="text" name="UserName" value="@Request.QueryString["UserName"]" placeholder="用户名" />
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="RealName">真实姓名</label>
+                    <input class="form-control" type="text" name="RealName" value="@Request.QueryString["RealName"]" placeholder="真实姓名" />
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="Mobile">手机号码</label>
+                    <input class="form-control" type="text" name="Mobile" value="@Request.QueryString["Mobile"]" placeholder="手机号码" />
+                </div>
+                
+                <button type="submit" class="btn btn-primary">搜索</button>
+            </form>
+        </div>
+    </div>
+    
+    <table class="table">
+        <thead>
+            <tr>
+                <th><input type="checkbox" value="" onclick=""></th>
+                <th>角色</th>
+                <th>用户名</th>
+                <th>真实姓名</th>
+                <th>手机号码</th>
+                <th>身份证号</th>
+                <th>职业</th>
+                <th>住址</th>
+                <th>创建日期</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <input type="checkbox" value="@item.MemberID" name="MemberID"></td>
+                    <td>@item.Role.RoleName</td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RealName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Mobile)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IDcard)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Job)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Address)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreateDate)
+                    </td>
+                    <td>
+                        <ul class="list-inline">
+                            <li>@Html.ActionLink("Edit", "Edit", new { id = item.MemberID })</li>
+                            <li>@Html.ActionLink("修改密码", "Changepassword", new { id = item.MemberID })</li>
+                        </ul>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+@*Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount*@
+<div class="">    
+共 @(Model.TotalItemCount) 条记录
+
+@Html.PagedListPager(Model, pageIndex => Url.Action("Index", new { pageIndex, pageSize = Request["pageSize"]}))
+    </div>

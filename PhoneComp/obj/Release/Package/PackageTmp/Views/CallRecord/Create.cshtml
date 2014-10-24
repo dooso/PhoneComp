@@ -1,0 +1,76 @@
+﻿@model PhoneComp.Models.CallRecord
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    @Html.DropDownList("SuspectID", (SelectList)ViewBag.SuspectID, new { @class = "chosen-select", style = "width:140px" })
+    <fieldset>
+        <legend>CallRecord</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SuspectID, "Suspects")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("SuspectID", String.Empty)
+            @Html.ValidationMessageFor(model => model.SuspectID)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CalledMobile)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CalledMobile)
+            @Html.ValidationMessageFor(model => model.CalledMobile)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.LordCalled)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.LordCalled)
+            @Html.ValidationMessageFor(model => model.LordCalled)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CallTime)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CallTime)
+            @Html.ValidationMessageFor(model => model.CallTime)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CallDuration)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CallDuration)
+            @Html.ValidationMessageFor(model => model.CallDuration)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.IsDeleted)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.IsDeleted)
+            @Html.ValidationMessageFor(model => model.IsDeleted)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

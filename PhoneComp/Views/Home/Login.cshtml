@@ -1,0 +1,73 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>号码比对系统</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/Template/JqueryUI/css/ui-lightness/jquery-ui-1.10.4.min.css" />
+    <script src="/Template/jquery/1.10.2/jquery.min.js"></script>
+    <script src="/Template/JqueryUI/js/jquery-ui-1.10.4.min.js"></script>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="/Template/Bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/Template/jquery-Validation/css/validationEngine.jquery.css" />
+    <link rel="stylesheet" href="/Template/Chosen/chosen.min.css" />
+    <link rel="stylesheet" href="/Content/login.css" />
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="/Template/Bootstrap/html5shiv.min.js"></script>
+        <script src="/Template/Bootstrap/respond.min.js"></script>
+    <![endif]-->    
+    <script src="/Scripts/utility.js"></script>
+    <script src="/Template/Chosen/chosen.jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#LoginOn").click(function () {
+                submitForm("loginForm", "/Home/Login", $("#loginForm").serialize());
+            });
+
+            myFormValidation("loginForm");
+        });
+
+        $(document).keyup(function (event) {
+            if (event.keyCode == 13) {
+                $("#LoginOn").trigger("click");
+            }
+        });
+    </script>
+</head>
+<body class="bs-docs-home">
+    <div class="bs-masthead" id="content" role="main">
+	    <div class="container pmid">
+	    	<h1>号码比对系统</h1>
+	    	<div class="pmid">
+		    	<form class="form-inline" id="loginForm" name="loginForm" role="form" method="post">
+				  <div class="form-group">
+				    <label class="sr-only" for="UserID">用户名</label>
+				    <input type="text" class="validate[required] form-control" id="UserName" name="UserName" placeholder="用户名">
+				  </div>
+				  <div class="form-group">
+				    <label class="sr-only" for="Password">密码</label>
+				    <input type="password" class="validate[required] form-control" id="Password" name="Password" placeholder="密码">
+				  </div>
+				  <button type="button" id="LoginOn" name="LoginOn" class="btn btn-default">登录</button>
+				</form>
+			</div>
+	    </div> <!-- /container -->
+	</div>
+    <footer class="container pmid">
+        <p>© 2014 版权 · 技术支持：<a href="javascript:void(0);" target="_blank">957310108@qq.com</a></p>
+    </footer>
+    <div id="Message" style="display: none"></div>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="/Template/Bootstrap/js/bootstrap.min.js"></script>
+    <!--jquery-Validation -->
+    <script src="/Template/jquery-Validation/js/jquery.validationEngine-zh_CN.js"></script>
+    <script src="/Template/jquery-Validation/js/jquery.validationEngine.min.js"></script>
+</body>
+</html>

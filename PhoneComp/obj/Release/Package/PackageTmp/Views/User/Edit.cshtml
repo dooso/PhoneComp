@@ -1,0 +1,86 @@
+﻿@model PhoneComp.Models.Member
+@{
+    ViewBag.Title = "更新管理员信息";
+    Layout = "~/Views/Shared/_LayoutCustom.cshtml";
+}
+
+<ol class="breadcrumb">
+    <li><a href="/Home/Index">Home</a></li>
+    <li><a href="/User/Index">管理员列表</a></li>
+    <li class="avtive">更新管理员信息</li>
+</ol>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2>更新管理员信息</h2>
+    </div>
+    <div class="panel-body">    
+        <form class="form-horizontal" id="edituserform" name="edituserform" action="" method="post" role="form">           
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="UserName">用户名</label>
+                <div class="col-sm-8">
+                    <span class="label label-default" id="UserName">@Model.UserName</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="RoleID">角色</label>
+                <div class="col-sm-8">
+                    @Html.DropDownList("RoleID", (SelectList)ViewBag.RoleID, new { @class = "chosen-select-deselect", style = "width:140px" })
+                </div>
+            </div> 
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="RealName">真实姓名</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control validate[required]" id="RealName" name="RealName" value="@Model.RealName" placeholder="真实姓名">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="Mobile">手机号</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control validate[required,minSize[6],maxSize[24]]" id="Mobile" name="Mobile" value="@Model.Mobile" placeholder="手机号">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="IDcard">身份证号</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control validate[required,custom[chinaIdLoose]]" id="IDcard" name="IDcard" value="@Model.IDcard" placeholder="身份证号">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="Job">职业</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="Job" name="Job" value="@Model.Job" placeholder="职业">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="Address">地址</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="Address" name="Address" value="@Model.Address" placeholder="地址">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="Remark">备注</label>
+                <div class="col-sm-8">                    
+                    <textarea class="form-control"  cols="3" name="Remark" id="Remark" placeholder="备注">@Model.Remark</textarea>
+                </div>
+            </div>
+            <div >
+                <div class="center-block col-sm-6" style=" float: none; ">
+                    <input type="hidden" name="MemberID" value="@Model.MemberID" />
+                    <input type="button" id="submit" class="btn btn-primary" value="提交" />
+                    <a class="btn btn-default" href="/user/index">取消</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#submit").click(function () {
+            submitForm("edituserform", "/User/Edit", $("#edituserform").serialize());
+        });
+
+        myFormValidation("edituserform");
+    });
+</script>
+

@@ -1,0 +1,60 @@
+﻿@model PhoneComp.Models.CallRecord
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>CallRecord</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Suspects.SuspectName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Suspects.SuspectName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CalledMobile)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CalledMobile)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.LordCalled)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.LordCalled)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CallTime)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CallTime)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CallDuration)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CallDuration)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.IsDeleted)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IsDeleted)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

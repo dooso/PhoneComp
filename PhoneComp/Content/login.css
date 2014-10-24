@@ -1,0 +1,241 @@
+
+body {
+  position: relative;
+  padding-top: 56px;
+}
+
+.mainwrap{  
+  min-height: 500px;
+}
+.navbar-static-top {
+  margin-bottom: 19px;
+}
+
+a,a:hover{
+  text-decoration: none;
+}
+.pmid{
+	margin:10px auto;
+	text-align: center;
+}
+
+.navbar-static-top {
+  margin-bottom: 19px;
+}
+
+.box{
+	color: black;
+}
+.box a{	
+	color: black;
+}
+.box_lab{
+	margin: 20px auto 40px;
+	width: 60%;
+	height: 180px;
+	border: 1px solid #ccc;
+}
+.fleft{ float: left;}
+.fright{float: right;}
+.bgcolor{ background: #f5f5f5;}
+.bgcolor1{ background-color: #ee6e6e;}
+.bgcolor2{ background-color: #6e83ee;}
+.bgcolor3{ background-color: #4bd876;}
+.bgcolor4{ background-color: #d6e03a;}
+
+.table tbody > tr > td{
+  vertical-align: middle;
+}
+.tbimg{
+  width: 60px;
+  height: 45px;
+  background: url(images/bg_tb.jpg) no-repeat;
+}
+
+.form-control{
+  width: auto;
+}
+
+.inblock{
+  display: inline-block;
+}
+
+.projects .thumbnail .caption{
+  height: 200px;
+  overflow-y:hidden;
+  color: #555;
+}
+
+.btn-tran{
+  border: solid 1px #357ebd;
+  padding: 6px 12px;
+  margin: 4px;
+  border-radius: 4px;
+  -webkit-user-select:none;
+}
+
+.avator{
+  position: relative;
+  width: auto;
+  min-height: 1px;
+  padding: 0 15px;
+  float: left; 
+}
+
+div table tr th {
+  /*width: 90px; */
+}
+.tag_title{
+  padding: 6px 12px;
+}
+
+.img-1{
+  width: 160px;
+  height: 120px;
+  display: block;
+}
+
+.thumbnail{
+  margin-top: 10px;
+}
+
+.modal-dialog .modal-body{
+  padding-bottom: 0px;
+}
+.modal-body textarea{
+  width: 100%;
+}
+/* Masthead (headings and download button) */
+ .bs-masthead {
+  position: relative;
+  padding: 30px 15px;
+  text-align: center;
+  text-shadow: 0 1px 0 rgba(0,0,0,.15);
+}
+.bs-masthead h1 {
+  font-size: 50px;
+  line-height: 1;
+  color: #fff;
+}
+.bs-masthead .btn-outline-inverse {
+  margin: 10px;
+}
+
+/* Links to project-level content like the repo, Expo, etc */
+.bs-masthead-links {
+  margin-top: 20px;
+  margin-bottom: 40px;
+  padding: 0 15px;
+  list-style: none;
+  text-align: center;
+}
+.bs-masthead-links li {
+  display: inline;
+}
+.bs-masthead-links li + li {
+  margin-left: 20px;
+}
+.bs-masthead-links a {
+  color: #fff;
+}
+@media screen and (min-width: 768px) {
+  .bs-masthead {
+    text-align: left;
+    padding-top:    100px;
+    padding-bottom: 180px;
+  }
+  .bs-masthead h1 {
+    font-size: 60px;
+  }
+  .bs-masthead .lead {
+    margin-right: 25%;
+    font-size: 30px;
+  }
+  .bs-masthead .btn-outline-inverse {
+    width: auto;
+    margin: 20px 5px 20px 0;
+    padding: 18px 24px;
+    font-size: 21px;
+  }
+  .bs-masthead-links {
+    padding: 0;
+    text-align: left;
+  }
+}
+
+
+/* Homepage variations */
+.bs-docs-home .carbonad {
+  margin: 0 -15px 40px !important;
+}
+@media screen and (min-width: 480px) {
+  .bs-docs-home .carbonad {
+    width: 330px !important;
+    margin: 0 auto 40px !important;
+    border-radius: 4px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .bs-docs-home .carbonad {
+    float: left;
+    width: 330px !important;
+    margin: 0 0 30px !important;
+  }
+  .bs-docs-home .bs-social,
+  .bs-docs-home .bs-masthead-links {
+    margin-left: 350px;
+  }
+}
+@media screen and (min-width: 992px) {
+  .bs-docs-home .carbonad {
+    position: static;
+  }
+}
+@media screen and (min-width: 1170px) {
+  .bs-docs-home .carbonad {
+    margin-top: -25px !important;
+  }
+}
+
+.bs-docs-home,
+.bs-header {
+  color: #cdbfe3;
+  background-color: #563d7c;
+  background-image:url(images/bg.png);
+}
+
+/*
+ * Main navigation
+ *
+ * Turn the `.navbar` at the top of the docs purple.
+ */
+.bs-docs-nav {
+  text-shadow: 0 -1px 0 rgba(0,0,0,.15);
+  background-color: #563d7c;
+  border-color: #463265;
+  box-shadow: 0 1px 0 rgba(255,255,255,.1);
+}
+.bs-docs-nav .navbar-collapse {
+  border-color: #463265;
+}
+.bs-docs-nav .navbar-brand {
+  color: #fff;
+}
+.bs-docs-nav .navbar-nav > li > a {
+  color: #cdbfe3;
+}
+.bs-docs-nav .navbar-nav > li > a:hover {
+  color: #fff;
+}
+.bs-docs-nav .navbar-nav > .active > a,
+.bs-docs-nav .navbar-nav > .active > a:hover {
+  color: #fff;
+  background-color: #463265;
+}
+.bs-docs-nav .navbar-toggle {
+  border-color: #563d7c;
+}
+.bs-docs-nav .navbar-toggle:hover {
+  background-color: #463265;
+  border-color: #463265;
+}
